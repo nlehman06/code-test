@@ -16,9 +16,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -36,5 +34,15 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'subscription_expires' => 'date:Y-m-d'
     ];
+
+    public function isExpired()
+    {
+        return $this->subscription_expires->isBefore(today());
+    }
+    public function isSubscribed()
+    {
+        return !is_null($this->subscription_id) and !$this->isExpired();
+    }
 }
