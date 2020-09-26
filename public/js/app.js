@@ -2123,21 +2123,152 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var formatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  minimumFractionDigits: 2
+});
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    type: {
+      type: String,
+      "default": "all"
+    }
+  },
   data: function data() {
     return {
       products: []
     };
+  },
+  computed: {
+    url: function url() {
+      return this.type === "all" ? "/api/product" : "/api/myProducts";
+    }
   },
   methods: {
     loadProducts: function loadProducts() {
       var _this = this;
 
       axios.get("/sanctum/csrf-cookie").then(function (response) {
-        axios.get("/api/product").then(function (response) {
+        axios.get(_this.url).then(function (response) {
           _this.products = response.data;
+        })["catch"](function () {
+          console.log(response);
         });
+      })["catch"](function () {
+        console.log(response);
       });
+    },
+    addProduct: function addProduct(product) {
+      axios.get("/sanctum/csrf-cookie").then(function (response) {
+        axios.post("/api/myProducts", {
+          'productId': product.id
+        }).then(function (response) {// returns list of my products.  Could be used to determine if product is already added.
+        })["catch"](function () {
+          console.log(response);
+        });
+      })["catch"](function () {
+        console.log(response);
+      });
+    },
+    removeProduct: function removeProduct(product) {
+      var _this2 = this;
+
+      axios.get("/sanctum/csrf-cookie").then(function (response) {
+        axios["delete"]("/api/myProducts", {
+          data: {
+            'productId': product.id
+          }
+        }).then(function (response) {
+          _this2.products = response.data;
+        })["catch"](function () {
+          console.log(response);
+        });
+      })["catch"](function () {
+        console.log(response);
+      });
+    },
+    price: function price(rawPrice) {
+      return formatter.format(rawPrice / 100);
     }
   },
   created: function created() {
@@ -20152,7 +20283,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "grid grid-cols-3 gap-4" },
+    { staticClass: "grid lg:grid-cols-3 gap-4" },
     _vm._l(_vm.products, function(product) {
       return _c(
         "div",
@@ -20165,29 +20296,209 @@ var render = function() {
             "div",
             {
               staticClass:
-                "flex-1 bg-white shadow-2xl rounded-lg mb-6 tracking-wide"
+                "flex flex-col justify-between flex-1 bg-white shadow-2xl rounded-lg mb-6 tracking-wide"
             },
             [
-              _c("div", { staticClass: "md:flex-shrink-0" }, [
-                _c("img", {
-                  staticClass: "w-full h-64 rounded-lg rounded-b-none",
-                  attrs: { src: product.image, alt: "mountains" }
-                })
+              _c("div", [
+                _c("div", { staticClass: "md:flex-shrink-0" }, [
+                  _c("img", {
+                    staticClass:
+                      "w-full h-64 rounded-lg rounded-b-none object-contain",
+                    attrs: { src: product.image, alt: product.name }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "px-4 py-2 mt-2" }, [
+                  _c(
+                    "h2",
+                    {
+                      staticClass:
+                        "font-bold text-2xl text-gray-800 tracking-normal"
+                    },
+                    [
+                      _vm._v(
+                        "\n            " + _vm._s(product.name) + "\n          "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "p",
+                    { staticClass: "text-sm text-gray-700 px-2 mr-1 py-8" },
+                    [
+                      _vm._v(
+                        "\n            " +
+                          _vm._s(product.description) +
+                          "\n          "
+                      )
+                    ]
+                  )
+                ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "px-4 py-2 mt-2" }, [
-                _c(
-                  "h2",
-                  {
-                    staticClass:
-                      "font-bold text-2xl text-gray-800 tracking-normal"
-                  },
-                  [_vm._v("\n          " + _vm._s(product.name) + "\n        ")]
-                ),
+              _c("div", [
+                _c("div", { staticClass: "flex justify-around pb-8" }, [
+                  _c(
+                    "div",
+                    { staticClass: "font-bold text-2xl text-gray-800" },
+                    [
+                      _vm._v(
+                        "\n            " +
+                          _vm._s(_vm.price(product.price)) +
+                          "\n          "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", [
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "hover:text-gray-500 focus:outline-none focus:border-gray-700 focus:shadow-outline-gray active:text-gray-700 transition duration-150 ease-in-out"
+                      },
+                      [
+                        _c(
+                          "svg",
+                          {
+                            staticClass: "w-6 h-6",
+                            attrs: {
+                              fill: "none",
+                              stroke: "currentColor",
+                              viewBox: "0 0 24 24",
+                              xmlns: "http://www.w3.org/2000/svg"
+                            }
+                          },
+                          [
+                            _c("path", {
+                              attrs: {
+                                "stroke-linecap": "round",
+                                "stroke-linejoin": "round",
+                                "stroke-width": "2",
+                                d:
+                                  "M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    )
+                  ])
+                ]),
                 _vm._v(" "),
-                _c("p", { staticClass: "text-sm text-gray-700 px-2 mr-1" }, [
-                  _vm._v(
-                    "\n          " + _vm._s(product.description) + "\n        "
+                _c("div", { staticClass: "flex items-center justify-center" }, [
+                  _c(
+                    "button",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.type === "all",
+                          expression: "type === 'all'"
+                        }
+                      ],
+                      staticClass:
+                        "group relative w-3/4 mb-8 flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-gray-600 hover:bg-gray-500 focus:outline-none focus:border-gray-700 focus:shadow-outline-gray active:bg-gray-700 transition duration-150 ease-in-out",
+                      on: {
+                        click: function($event) {
+                          return _vm.addProduct(product)
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "span",
+                        {
+                          staticClass:
+                            "absolute left-0 inset-y-0 flex items-center pl-3"
+                        },
+                        [
+                          _c(
+                            "svg",
+                            {
+                              staticClass:
+                                "h-5 w-5 text-gray-500 group-hover:text-gray-400 transition ease-in-out duration-150",
+                              attrs: {
+                                fill: "none",
+                                stroke: "currentColor",
+                                viewBox: "0 0 24 24",
+                                xmlns: "http://www.w3.org/2000/svg"
+                              }
+                            },
+                            [
+                              _c("path", {
+                                attrs: {
+                                  "stroke-linecap": "round",
+                                  "stroke-linejoin": "round",
+                                  "stroke-width": "2",
+                                  d:
+                                    "M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                                }
+                              })
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v("\n            Add to your products\n          ")
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.type === "my",
+                          expression: "type === 'my'"
+                        }
+                      ],
+                      staticClass:
+                        "group relative w-3/4 mb-8 flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-gray-600 hover:bg-gray-500 focus:outline-none focus:border-gray-700 focus:shadow-outline-gray active:bg-gray-700 transition duration-150 ease-in-out",
+                      on: {
+                        click: function($event) {
+                          return _vm.removeProduct(product)
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "span",
+                        {
+                          staticClass:
+                            "absolute left-0 inset-y-0 flex items-center pl-3"
+                        },
+                        [
+                          _c(
+                            "svg",
+                            {
+                              staticClass:
+                                "h-5 w-5 text-gray-500 group-hover:text-gray-400 transition ease-in-out duration-150",
+                              attrs: {
+                                fill: "none",
+                                stroke: "currentColor",
+                                viewBox: "0 0 24 24",
+                                xmlns: "http://www.w3.org/2000/svg"
+                              }
+                            },
+                            [
+                              _c("path", {
+                                attrs: {
+                                  "stroke-linecap": "round",
+                                  "stroke-linejoin": "round",
+                                  "stroke-width": "2",
+                                  d:
+                                    "M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                                }
+                              })
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v("\n            Remove\n          ")
+                    ]
                   )
                 ])
               ])

@@ -26,6 +26,6 @@ class UserProductsController extends Controller
     public function destroy(Request $request)
     {
         $request->user()->products()->detach($request->productId);
-        return response()->json([]);
+        return response()->json($request->user()->products);
     }
 }

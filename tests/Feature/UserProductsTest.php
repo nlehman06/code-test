@@ -79,21 +79,23 @@ class UserProductsTest extends TestCase
     public function a_user_may_remove_their_own_products()
     {
         factory(Subscription::class)->create();
-        $product = factory(Product::class)->create();
+        $product1 = factory(Product::class)->create();
+        $product2 = factory(Product::class)->create();
         $user = factory(User::class)->state('expired')->create();
-        $user->products()->attach($product->id);
+        $user->products()->attach($product1->id);
+        $user->products()->attach($product2->id);
 
-        $this->assertCount(1, $user->fresh()->products);
+        $this->assertCount(2, $user->fresh()->products);
 
         Sanctum::actingAs(
             $user,
             ['*']
         );
         $this->withoutExceptionHandling()
-            ->deleteJson(route('userProducts.destroy'), ['productId' => $product->id])
+            ->deleteJson(route('userProducts.destroy'), ['productId' => $product1->id])
             ->assertOk()
-            ->assertJsonCount(0);
+            ->assertJsonCount(1);
 
-        $this->assertCount(0, $user->fresh()->products);
+        $this->assertCount(1, $user->fresh()->products);
     }
 }

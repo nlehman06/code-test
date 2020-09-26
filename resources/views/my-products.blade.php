@@ -1,3 +1,3 @@
 <x-app-layout title="My Products">
-    Blah blah blah
+    <product-grid type="my"></product-grid>
 </x-app-layout>
