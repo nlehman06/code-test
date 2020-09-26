@@ -37,6 +37,11 @@ class User extends Authenticatable
         'subscription_expires' => 'date:Y-m-d'
     ];
 
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
+    }
+
     public function isExpired()
     {
         return $this->subscription_expires->isBefore(today());

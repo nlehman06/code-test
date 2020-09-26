@@ -20,4 +20,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/product/{product}/upload', 'ProductController@upload')->name('product.upload');
     Route::delete('/product/{product}', 'ProductController@destroy')->name('product.destroy');
     Route::get('/product/{product}', 'ProductController@show')->name('product.show');
+
+    Route::get('/myProducts', 'UserProductsController@index')->name('userProducts.index');
+    Route::post('/myProducts', 'UserProductsController@store')->name('userProducts.store');
+    Route::delete('/myProducts', 'UserProductsController@destroy')->name('userProducts.destroy');
 });
