@@ -51,7 +51,7 @@ class ProductController extends Controller
         $request->validate([
             'image' => 'required|image'
         ]);
-        $path = $request->file('image')->store('images', 'public');
+        $path = $request->file('image')->store('/', 'public');
         $product->image = $path;
         $product->update();
         return response()->json($product);

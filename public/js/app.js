@@ -2000,6 +2000,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     showing: {
@@ -2021,7 +2061,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     title: function title() {
-      return this.product.id ? 'Edit Product' : 'Create Product';
+      return this.product.id ? "Edit Product" : "Create Product";
     }
   },
   watch: {
@@ -2047,7 +2087,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/sanctum/csrf-cookie").then(function (response) {
         axios.patch("/api/product/".concat(_this.product.id, "/update"), _this.product).then(function (response) {
           _this.close();
-        })["catch"](function () {
+        })["catch"](function (error) {
           if (error.response.status === 401) {
             window.location.href = "/login";
           }
@@ -2064,7 +2104,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/sanctum/csrf-cookie").then(function (response) {
         axios.post("/api/product", _this2.product).then(function (response) {
           _this2.close();
-        })["catch"](function () {
+        })["catch"](function (error) {
           if (error.response.status === 401) {
             window.location.href = "/login";
           }
@@ -2081,12 +2121,37 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/sanctum/csrf-cookie").then(function (response) {
         axios["delete"]("/api/product/".concat(_this3.product.id)).then(function (response) {
           _this3.close();
-        })["catch"](function () {
+        })["catch"](function (error) {
           if (error.response.status === 401) {
             window.location.href = "/login";
           }
 
           console.log(error.response.status);
+        });
+      })["catch"](function () {
+        console.log(response);
+      });
+    },
+    uploadImage: function uploadImage(event) {
+      var _this4 = this;
+
+      var data = new FormData();
+      console.log(event.target);
+      data.append("image", event.target.files[0]);
+      var config = {
+        header: {
+          //   "Content-Type": "image/png",
+          "Content-Type": "multipart/form-data"
+        }
+      };
+      axios.get("/sanctum/csrf-cookie").then(function (response) {
+        axios.post("/api/product/".concat(_this4.product.id, "/upload"), data, config).then(function (response) {// Display some sort of success message and continue on with the form.
+        })["catch"](function (error) {
+          if (error.response.status === 401) {
+            window.location.href = "/login";
+          }
+
+          console.log(error.response.data.errors);
         });
       })["catch"](function () {
         console.log(response);
@@ -2295,7 +2360,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -20898,7 +20962,7 @@ var render = function() {
                     on: {
                       submit: function($event) {
                         $event.preventDefault()
-                        return _vm.updateProduct()
+                        return _vm.save()
                       }
                     }
                   },
@@ -21083,7 +21147,7 @@ var render = function() {
                             ],
                             staticClass:
                               "form-input block w-full pl-7 sm:text-sm sm:leading-5",
-                            attrs: { id: "price", placeholder: "Jane Smith" },
+                            attrs: { id: "price" },
                             domProps: { value: _vm.price },
                             on: {
                               input: function($event) {
@@ -21091,6 +21155,37 @@ var render = function() {
                                   return
                                 }
                                 _vm.price = $event.target.value
+                              }
+                            }
+                          })
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "pt-4" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "block text-sm leading-5 font-medium text-gray-700",
+                          attrs: { for: "image" }
+                        },
+                        [_vm._v("Change Image")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "mt-1 relative rounded-md shadow-sm" },
+                        [
+                          _c("input", {
+                            attrs: {
+                              type: "file",
+                              accept: "image/*",
+                              id: "file-input"
+                            },
+                            on: {
+                              change: function($event) {
+                                return _vm.uploadImage($event)
                               }
                             }
                           })
@@ -21602,8 +21697,7 @@ var render = function() {
             "div",
             {
               key: product.id,
-              staticClass: "mx-auto px-4 py-8 max-w-xl flex flex-col",
-              class: { "w-full": !product.image }
+              staticClass: "mx-auto px-4 py-8 max-w-xl flex flex-col w-full"
             },
             [
               _c(

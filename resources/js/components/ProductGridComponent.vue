@@ -28,8 +28,7 @@
     <div class="grid lg:grid-cols-3 gap-4">
       <!-- component -->
       <div
-        class="mx-auto px-4 py-8 max-w-xl flex flex-col"
-        :class="{'w-full': !product.image}"
+        class="mx-auto px-4 py-8 max-w-xl flex flex-col w-full"
         v-for="product in products"
         v-bind:key="product.id"
       >
