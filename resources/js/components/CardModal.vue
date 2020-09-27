@@ -102,6 +102,7 @@
           </div>
           <div class="pt-4 flex items-center justify-center">
             <button
+            type="button"
               @click="save()"
               class="group relative w-1/4 mb-8 flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-gray-600 hover:bg-gray-500 focus:outline-none focus:border-gray-700 focus:shadow-outline-gray active:bg-gray-700 transition duration-150 ease-in-out"
             >
