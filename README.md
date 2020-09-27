@@ -10,8 +10,9 @@ My name is Nathan Lehman and this is my coding exercise submission.  Thanks for 
 5. Run `php artisan db:seed`
 6. Run `php artisan key:generate`
 7. Run `npm install && npm run prod`
-8. Serve up the application using `php artisan serve` or however you prefer to serve your local web apps
-9. To run the tests: `php artisan test`
+8. To run the tests: `php artisan test`
+9. Serve up the application using `php artisan serve` or however you prefer to serve your local web apps
+10. To log in, the username is `james.terrono@furthered.com` and the password is `password`.
 
 ## A bit about the app
 Obviously there are a ton of different directions I could have went with to make this app.  I ended up going with the new [Laravel Sanctum](https://laravel.com/docs/8.x/sanctum) package for handling api authentication.  It is able to handle cookies and tokens simultaneously and seemed like a great choice for this type of app.  This way I could use the regular Laravel way of logging in to the app but still be able to access the api within my Vue components.
