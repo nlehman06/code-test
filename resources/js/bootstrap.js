@@ -53,6 +53,12 @@ Vue.component(
   require("./components/ProductGridComponent.vue").default
 );
 
+Vue.component(
+  "card-modal",
+  require("./components/CardModal.vue").default
+);
+
+
 const app = new Vue({
   el: "#app"
 });

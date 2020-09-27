@@ -18,9 +18,10 @@
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 </head>
 
-<body class="bg-gray-100 h-screen antialiased leading-none">
+<body class="relative bg-gray-100 h-screen antialiased leading-none">
     <div id="app">
-        <nav-component :user="{{ auth()->user() ?: "blah" }}" title="{{ config('app.name', 'Laravel') }}"></nav-component>
+        <nav-component :user="{{ auth()->user() ?: "blah" }}" title="{{ config('app.name', 'Laravel') }}">
+        </nav-component>
 
         <header class="bg-white shadow">
             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">

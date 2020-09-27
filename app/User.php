@@ -42,6 +42,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Product::class);
     }
 
+    public function subscription()
+    {
+        return $this->belongsTo(Subscription::class);
+    }
+
     public function isExpired()
     {
         return $this->subscription_expires->isBefore(today());
