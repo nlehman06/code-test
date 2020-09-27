@@ -174,13 +174,13 @@ class ProductsTest extends TestCase
             ['*']
         );
         $this->withoutExceptionHandling()
-        ->patchJson(route('product.upload', $product), ['image' => $file])
+        ->postJson(route('product.upload', $product), ['image' => $file])
         ->assertOk();
 
-        Storage::disk('public')->assertExists('images/'.$file->hashName());
+        Storage::disk('public')->assertExists($file->hashName());
 
         $product = $product->fresh();
-        $this->assertEquals('images/'.$file->hashName(), $product->image);
+        $this->assertEquals($file->hashName(), $product->image);
     }
 
     /** @test */
@@ -191,7 +191,7 @@ class ProductsTest extends TestCase
             factory(User::class)->create(),
             ['*']
         );
-        $this->patchJson(route('product.upload', $product), ['image' => 'not an image'])
+        $this->postJson(route('product.upload', $product), ['image' => 'not an image'])
         ->assertJsonValidationErrors(['image']);
     }
 }

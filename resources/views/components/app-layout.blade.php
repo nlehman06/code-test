@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Law Swag</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -20,7 +20,7 @@
 
 <body class="relative bg-gray-100 h-screen antialiased leading-none">
     <div id="app">
-        <nav-component :user="{{ auth()->user() ?: "blah" }}" title="{{ config('app.name', 'Laravel') }}">
+        <nav-component :user="{{ auth()->user() ?: "blah" }}" title="Law Swag">
         </nav-component>
 
         <header class="bg-white shadow">
