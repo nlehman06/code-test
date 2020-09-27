@@ -18,9 +18,11 @@ Route::get('/', function () {
 });
 Auth::routes(['register' => false]);
 
-Route::get('/products', function () {
-    return view('products');
-})->name('products');
-Route::get('/my-products', function () {
-    return view('my-products');
-})->name('my-products');
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/products', function () {
+        return view('products');
+    })->name('products');
+    Route::get('/my-products', function () {
+        return view('my-products');
+    })->name('my-products');
+});
