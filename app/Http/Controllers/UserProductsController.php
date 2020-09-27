@@ -19,7 +19,7 @@ class UserProductsController extends Controller
         $data = $request->validate([
             'productId' => 'required|exists:products,id'
         ]);
-        $request->user()->products()->attach($data['productId']);
+        $request->user()->products()->syncWithoutDetaching($data['productId']);
         return response()->json($request->user()->products);
     }
 

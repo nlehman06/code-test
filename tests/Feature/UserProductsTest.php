@@ -47,6 +47,10 @@ class UserProductsTest extends TestCase
         ->postJson(route('userProducts.store'), ['productId' => $product->id])
         ->assertOk();
         $this->assertCount(1, $user->fresh()->products);
+        $this->withoutExceptionHandling()
+        ->postJson(route('userProducts.store'), ['productId' => $product->id])
+        ->assertOk();
+        $this->assertCount(1, $user->fresh()->products);
     }
 
     /** @test */
