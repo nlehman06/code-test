@@ -14,6 +14,8 @@ My name is Nathan Lehman and this is my coding exercise submission.  Thanks for 
 9. Serve up the application using `php artisan serve` or however you prefer to serve your local web apps
 10. To log in, the username is `james.terrono@furthered.com` and the password is `password`.
 
+If for some reason you are unable to get this working locally, I've published the demo to [lawline-code-test.nelhman.dev](https://lawline-code-test.nlehman.dev).
+
 ## A bit about the app
 Obviously there are a ton of different directions I could have went with to make this app.  I ended up going with the new [Laravel Sanctum](https://laravel.com/docs/8.x/sanctum) package for handling api authentication.  It is able to handle cookies and tokens simultaneously and seemed like a great choice for this type of app.  This way I could use the regular Laravel way of logging in to the app but still be able to access the api within my Vue components.
 
@@ -22,5 +24,7 @@ If you are unable to get my app to work with your setup, it might be because you
 I also chose to use Laravel for my site/web routing.  In real life, I might have went with an SPA approach and used [Vue Router](https://router.vuejs.org/) and even seperated the frontend Vue app into it's own repository.  Or another route that I would prefer is to use [Laravel Livewire](https://laravel-livewire.com/) and get all the frontend goodness of a javascript app but keep all the code in the backend.  But those wouldn't have been the correct paths for this exercise.
 
 I did choose to do the *bonus* of writing the frontend in Vue JS and [Tailwind CSS](https://tailwindcss.com/).  This was somewhat thrown together so that it does the minimum to work.  There is plenty more that could be done that I just didn't have time to do (error messages and validation, frontend testing, cleaner handling of axios, etc.).
+
+Unfortunately, I wasn't able to get the file upload to work correctly on the frontend.  Something about the referncing the storage location.  It does upload the image, but maybe not in the right place.  It works locally for me but not when I deploy it or try to install a new clone.  I'm sure it is a small fix but I just ran out of time.
 
 Well, I hope you enjoy the app.  I had fun building it.  Again, let me know if you have any questions at [nathan@nlehman.dev](mailto:nathan@nlehman.dev).
